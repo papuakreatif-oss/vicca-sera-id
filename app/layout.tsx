@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Cormorant_Garamond, Inter, Italiana } from 'next/font/google'
 import { viccaSeraJsonLdString } from '@/lib/jsonld'
 import './globals.css'
 
-// Cormorant Garamond — serif display, wedding elegant
+// Cormorant Garamond — display serif, wedding elegance
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -20,9 +20,17 @@ const inter = Inter({
   display: 'swap',
 })
 
+// Italiana — luxury accent, engraved feel for wedding titles
+const italiana = Italiana({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-italiana',
+  display: 'swap',
+})
+
 const SITE_URL = 'https://vicca.id'
 const SITE_NAME = 'Vicca Sera Wedding Organizer'
-const SITE_DESC = 'Wedding Organizer premium di Papua. Mendesain pernikahan Anda dari konsep hingga hari-H dengan rasa elegan, sentuhan lokal, dan standar internasional. 4 paket eksklusif: SKYLINE, CYCLOOP, NUMBAY, YOUTEFA.'
+const SITE_DESC = 'Wedding Organizer premium di Papua. Mendesain pernikahan Anda dari konsep hingga hari-H dengan rasa elegan, sentuhan lokal, dan standar internasional.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -83,7 +91,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FAF7F2',
+  themeColor: '#0A0E1F',
+  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -97,8 +106,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="id" className={`${cormorant.variable} ${inter.variable}`}>
-      <body className="min-h-screen bg-cream-100 text-charcoal-600 antialiased font-sans">
+    <html lang="id" className={`${cormorant.variable} ${inter.variable} ${italiana.variable}`}>
+      <body className="min-h-screen bg-midnight-400 text-ivory-100 antialiased font-sans">
+        {/* Skip to content — accessibility */}
+        <a href="#main" className="skip-link">
+          Lewati ke konten utama
+        </a>
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: viccaSeraJsonLdString }}

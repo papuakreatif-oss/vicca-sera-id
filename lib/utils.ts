@@ -2,52 +2,54 @@ import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 /**
- * cn — Conditional className merger.
- * Combines clsx + tailwind-merge untuk smart Tailwind class combination.
+ * cn() — Conditional className merger with Tailwind dedupe.
+ * Standard shadcn pattern.
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
 /**
- * formatRupiah — Format angka ke Rupiah IDR.
- * Example: 220000000 → "Rp 220.000.000"
+ * formatRupiah() — Format a number to Indonesian Rupiah currency string.
+ *
+ * @example
+ *   formatRupiah(170_000_000)  // 'Rp 170.000.000'
+ *   formatRupiah(1500)         // 'Rp 1.500'
  */
-export function formatRupiah(amount: number, prefix: string = 'Rp '): string {
-  return `${prefix}${amount.toLocaleString('id-ID')}`
+export function formatRupiah(amount: number): string {
+  return 'Rp ' + amount.toLocaleString('id-ID', {
+    maximumFractionDigits: 0,
+  })
 }
 
 /**
- * formatPax — Format guest count.
- * Example: 200 → "200 tamu"
+ * formatRupiahShort() — Compact format (millions/billions).
+ *
+ * @example
+ *   formatRupiahShort(170_000_000)  // 'Rp 170jt'
+ *   formatRupiahShort(1_500_000)    // 'Rp 1,5jt'
  */
-export function formatPax(count: number): string {
-  return `${count} tamu`
-}
-
-/**
- * formatWhatsAppURL — Build WhatsApp click-to-chat URL.
- */
-export function formatWhatsAppURL(
-  phone: string,
-  message?: string
-): string {
-  const cleanPhone = phone.replace(/[^0-9]/g, '').replace(/^0/, '62')
-  const url = `https://wa.me/${cleanPhone}`
-  if (message) {
-    return `${url}?text=${encodeURIComponent(message)}`
+export function formatRupiahShort(amount: number): string {
+  if (amount >= 1_000_000_000) {
+    return `Rp ${(amount / 1_000_000_000).toFixed(amount % 1_000_000_000 === 0 ? 0 : 1)}M`
   }
-  return url
+  if (amount >= 1_000_000) {
+    return `Rp ${(amount / 1_000_000).toFixed(amount % 1_000_000 === 0 ? 0 : 1)}jt`
+  }
+  if (amount >= 1_000) {
+    return `Rp ${(amount / 1_000).toFixed(0)}rb`
+  }
+  return `Rp ${amount}`
 }
 
 /**
- * slugify — Convert string to URL-safe slug.
+ * slugify() — URL-safe slug from a string.
  */
-export function slugify(text: string): string {
-  return text
+export function slugify(str: string): string {
+  return str
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
     .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
 }

@@ -27,32 +27,36 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-500',
+        'fixed inset-x-0 top-0 z-50 transition-all duration-700',
         scrolled
-          ? 'bg-cream-100/90 backdrop-blur-md border-b border-cream-300 shadow-sm'
+          ? 'bg-midnight-500/95 backdrop-blur-md border-b border-champagne-700/30 shadow-midnight-md'
           : 'bg-transparent'
       )}
     >
-      <div className="container-editorial flex items-center justify-between py-4">
+      <div className="container-editorial flex items-center justify-between py-5">
         {/* Logo */}
-        <a href="#hero" className="flex items-baseline gap-2 group">
-          <span className="font-serif text-2xl md:text-3xl font-medium text-charcoal-700 group-hover:text-sage-500 transition-colors">
+        <a href="#hero" className="flex items-baseline gap-3 group">
+          <span
+            className="font-accent text-2xl md:text-3xl text-champagne-400 group-hover:text-champagne-300 transition-colors duration-500"
+            style={{ letterSpacing: '0.05em' }}
+          >
             Vicca Sera
           </span>
-          <span className="hidden md:inline text-eyebrow uppercase tracking-widest-2 text-charcoal-500 font-sans">
-            Wedding
+          <span className="hidden md:inline text-eyebrow uppercase tracking-widest-3 text-ivory-400 font-sans font-light">
+            Wedding Atelier
           </span>
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-sans font-medium text-charcoal-600 hover:text-sage-500 transition-colors"
+              className="relative text-xs font-sans uppercase tracking-widest-2 text-ivory-200 hover:text-champagne-400 transition-colors duration-500 group"
             >
               {link.label}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-champagne-400 transition-all duration-500 group-hover:w-full" />
             </a>
           ))}
         </nav>
@@ -60,19 +64,19 @@ export function Header() {
         {/* CTA */}
         <div className="hidden lg:block">
           <a
-            href={`https://wa.me/${BRAND.phone}?text=${encodeURIComponent('Halo Bunda Vicca, saya tertarik dengan paket wedding Vicca Sera. Boleh info lebih lanjut?')}`}
+            href={`https://wa.me/${BRAND.phone}?text=${encodeURIComponent('Halo Bunda Vicca, saya tertarik dengan paket wedding Vicca Sera. Mohon info lebih lanjut.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary text-xs px-6 py-3"
+            className="inline-flex items-center gap-2 rounded-full border border-champagne-400 bg-transparent px-6 py-2.5 text-xs font-sans uppercase tracking-widest-2 text-champagne-400 transition-all duration-500 hover:bg-champagne-400 hover:text-midnight-500 hover:shadow-gold-sm"
           >
-            Konsultasi Gratis
+            Konsultasi
           </a>
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden p-2 text-charcoal-600 hover:text-sage-500 transition-colors"
+          className="lg:hidden p-2 text-champagne-400 hover:text-champagne-300 transition-colors"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -81,14 +85,14 @@ export function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-cream-100 border-t border-cream-300 animate-fade-in">
-          <nav className="container-editorial py-6 flex flex-col gap-4">
+        <div className="lg:hidden bg-midnight-500/98 backdrop-blur-md border-t border-champagne-700/30 animate-fade-in">
+          <nav className="container-editorial py-6 flex flex-col gap-5">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-base font-sans font-medium text-charcoal-600 hover:text-sage-500 transition-colors py-2"
+                className="text-sm font-sans uppercase tracking-widest-2 text-ivory-200 hover:text-champagne-400 transition-colors duration-500 py-2"
               >
                 {link.label}
               </a>
@@ -97,7 +101,7 @@ export function Header() {
               href={`https://wa.me/${BRAND.phone}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary mt-4 text-sm"
+              className="btn-secondary mt-4 text-xs"
             >
               Konsultasi via WhatsApp
             </a>

@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 /* ========================================
-   Base — Editorial Wedding Elegance
+   Base — Midnight Romance Dark Wedding
    ======================================== */
 @layer base {
   :root {
-    --color-cream: 250 247 242;
-    --color-sage: 156 175 136;
-    --color-rose: 212 165 165;
-    --color-charcoal: 44 44 44;
-    --color-gold: 201 169 97;
+    --color-midnight: 10 14 31;
+    --color-champagne: 212 175 122;
+    --color-ivory: 245 239 230;
+    --color-blush: 232 180 184;
+    --color-sage: 107 127 92;
   }
 
   html {
@@ -23,35 +23,35 @@
 
   body {
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
-    background-color: theme('colors.cream.100');
-    color: theme('colors.charcoal.600');
+    background-color: theme('colors.midnight.400');
+    color: theme('colors.ivory.100');
   }
 
   ::selection {
-    background-color: theme('colors.rose.300');
-    color: theme('colors.charcoal.700');
+    background-color: theme('colors.champagne.400');
+    color: theme('colors.midnight.700');
   }
 
-  /* Editorial scrollbar */
+  /* Editorial dark scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: theme('colors.cream.200');
+    background: theme('colors.midnight.500');
   }
   ::-webkit-scrollbar-thumb {
-    background: theme('colors.sage.300');
+    background: theme('colors.champagne.700');
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: theme('colors.sage.500');
+    background: theme('colors.champagne.500');
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: theme('fontFamily.serif');
     font-weight: 400;
-    color: theme('colors.charcoal.700');
+    color: theme('colors.ivory.100');
   }
 }
 
@@ -66,92 +66,92 @@
 
   /* Eyebrow label — small uppercase tracking */
   .eyebrow {
-    @apply text-eyebrow uppercase tracking-widest-2 font-sans font-medium text-sage-500;
+    @apply text-eyebrow uppercase tracking-widest-3 font-sans font-medium text-champagne-400;
   }
 
-  /* Headline display */
-  .display-1 { @apply font-serif text-display-1 text-charcoal-700; }
-  .display-2 { @apply font-serif text-display-2 text-charcoal-700; }
-  .display-3 { @apply font-serif text-display-3 text-charcoal-700; }
+  /* Display headlines */
+  .display-1 { @apply font-serif text-display-1 text-ivory-100; }
+  .display-2 { @apply font-serif text-display-2 text-ivory-100; }
+  .display-3 { @apply font-serif text-display-3 text-ivory-100; }
 
-  /* Decorative rule */
-  .rule-ornament {
-    @apply relative inline-block;
+  /* Gold gradient text — wedding luxury */
+  .text-gold-shimmer {
+    background: theme('backgroundImage.gradient-gold-shimmer');
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: goldShimmer 4s ease-in-out infinite;
   }
-  .rule-ornament::before,
-  .rule-ornament::after {
-    content: '';
-    @apply absolute top-1/2 h-px w-12 bg-sage-300;
-  }
-  .rule-ornament::before { @apply -left-16; }
-  .rule-ornament::after { @apply -right-16; }
 
-  /* Primary CTA — Dusty Rose */
+  .text-gold-gradient {
+    background: theme('backgroundImage.gold-text');
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Primary CTA — Champagne gold */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full
-           bg-rose-300 px-8 py-4 font-sans text-sm font-medium tracking-wide
-           text-charcoal-700 shadow-sm transition-all duration-300
-           hover:bg-rose-400 hover:shadow-lg hover:-translate-y-0.5
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400
-           focus-visible:ring-offset-2 focus-visible:ring-offset-cream-100;
+           border border-champagne-400 bg-transparent px-8 py-4
+           font-sans text-sm font-medium tracking-widest-2 uppercase
+           text-champagne-400 transition-all duration-500
+           hover:bg-champagne-400 hover:text-midnight-500 hover:shadow-gold-md
+           hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2
+           focus-visible:ring-champagne-400 focus-visible:ring-offset-2
+           focus-visible:ring-offset-midnight-400;
   }
 
-  /* Secondary CTA — Outlined */
+  /* Secondary CTA — Filled champagne */
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-full
-           border border-charcoal-600 bg-transparent px-8 py-4
-           font-sans text-sm font-medium tracking-wide text-charcoal-600
-           transition-all duration-300 hover:bg-charcoal-600
-           hover:text-cream-100 focus:outline-none focus-visible:ring-2
-           focus-visible:ring-charcoal-600 focus-visible:ring-offset-2
-           focus-visible:ring-offset-cream-100;
+           bg-champagne-400 px-8 py-4 font-sans text-sm font-medium
+           tracking-widest-2 uppercase text-midnight-500
+           shadow-gold-sm transition-all duration-500
+           hover:bg-champagne-300 hover:shadow-gold-md hover:-translate-y-0.5
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne-300
+           focus-visible:ring-offset-2 focus-visible:ring-offset-midnight-400;
   }
 
-  /* Package card */
-  .package-card {
-    @apply relative flex flex-col rounded-2xl border border-cream-300
-           bg-cream-50 p-8 transition-all duration-500
-           hover:border-sage-300 hover:shadow-xl hover:-translate-y-1;
+  /* Tertiary CTA — Text link with gold underline */
+  .btn-link {
+    @apply inline-flex items-center gap-2 font-sans text-sm font-medium
+           tracking-widest-2 uppercase text-champagne-400
+           transition-all duration-300 hover:text-champagne-300;
+  }
+  .btn-link::after {
+    content: '';
+    @apply block h-px w-full bg-champagne-400 transition-all duration-500;
+  }
+  .btn-link:hover::after {
+    @apply bg-champagne-300;
   }
 
-  .package-card-featured {
-    @apply border-sage-300 shadow-xl -translate-y-2 bg-gradient-to-br
-           from-cream-50 to-sage-50;
+  /* Dark glass card */
+  .glass-card {
+    @apply relative rounded-2xl border border-champagne-700/30
+           bg-midnight-200/40 backdrop-blur-sm p-8 transition-all duration-500
+           hover:border-champagne-400/60 hover:shadow-gold-sm hover:-translate-y-1;
   }
 
-  /* Form input */
+  .glass-card-featured {
+    @apply border-champagne-400/80 shadow-gold-md bg-gradient-to-br
+           from-midnight-100/80 to-midnight-300/80;
+  }
+
+  /* Form input — dark */
   .form-input {
-    @apply w-full rounded-lg border border-cream-300 bg-cream-50
-           px-4 py-3 font-sans text-sm text-charcoal-600
-           placeholder:text-charcoal-400
-           focus:border-sage-300 focus:outline-none focus:ring-2
-           focus:ring-sage-200 transition-all;
+    @apply w-full rounded-lg border border-midnight-100
+           bg-midnight-500/50 backdrop-blur-sm px-4 py-3 font-sans
+           text-sm text-ivory-100 placeholder:text-ivory-400
+           focus:border-champagne-400 focus:outline-none focus:ring-2
+           focus:ring-champagne-400/30 transition-all;
   }
 
   .form-label {
     @apply mb-2 block text-xs font-medium uppercase tracking-widest-2
-           text-charcoal-500 font-sans;
-  }
-}
-
-/* ========================================
-   Utilities — Custom
-   ======================================== */
-@layer utilities {
-  /* Cinematic parallax helper */
-  .parallax-bg {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  /* Text gradient */
-  .text-gradient-warm {
-    background: linear-gradient(135deg, theme('colors.sage.500') 0%, theme('colors.rose.400') 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+           text-champagne-300 font-sans;
   }
 
   /* Decorative ornament */
@@ -161,36 +161,109 @@
   .ornament-divider::before,
   .ornament-divider::after {
     content: '';
-    @apply h-px w-24 bg-sage-300;
+    @apply h-px w-24 bg-champagne-700/60;
   }
   .ornament-divider > * {
-    @apply font-serif italic text-sage-400 text-2xl;
+    @apply font-serif italic text-champagne-500 text-2xl;
   }
 
-  /* Reveal animation on scroll */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Curtain reveal — gold line draws across */
+  .curtain-line {
+    @apply block h-px w-full bg-gradient-to-r from-transparent via-champagne-400 to-transparent;
+    transform-origin: left;
+    animation: curtainReveal 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+
+  /* Skip link — accessibility */
+  .skip-link {
+    @apply absolute -top-12 left-4 z-50 rounded bg-champagne-400 px-4 py-2
+           text-sm font-medium text-midnight-500 transition-all duration-300
+           focus:top-4;
+  }
+}
+
+/* ========================================
+   Utilities — Custom
+   ======================================== */
+@layer utilities {
+  /* Text gradient */
+  .text-gradient-warm {
+    background: theme('backgroundImage.gold-text');
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Slow zoom container — for hero images */
+  .slow-zoom {
+    animation: slowZoom 8s ease-out forwards;
   }
 
   /* Reduced motion respect */
   @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
     html {
       scroll-behavior: auto;
     }
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
   }
+}
+
+/* ========================================
+   Wedding-specific scene styling
+   ======================================== */
+
+/* Floating petals — decorative SVG */
+.petal {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.petal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    rgba(232, 180, 184, 0.7) 0%,
+    rgba(232, 180, 184, 0.2) 60%,
+    transparent 100%);
+  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  animation: petalDrift 18s linear infinite;
+}
+
+/* Gold light leak overlay */
+.light-leak {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+    transparent 30%,
+    rgba(212, 175, 122, 0.15) 50%,
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.group:hover .light-leak {
+  opacity: 1;
+}
+
+/* Vignette overlay for cinematic feel */
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    transparent 40%,
+    rgba(10, 14, 31, 0.4) 100%);
+  pointer-events: none;
 }

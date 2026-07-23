@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { MessageCircle, Loader2, Check, Send } from 'lucide-react'
+import { MessageCircle, Loader2, Check, Send, Heart } from 'lucide-react'
 import { BRAND, PACKAGES } from '@/lib/constants'
 
 export function ContactForm() {
@@ -23,6 +23,13 @@ export function ContactForm() {
       date: formData.get('date') as string,
       location: formData.get('location') as string,
       message: formData.get('message') as string,
+      honeypot: formData.get('website') as string, // bot trap — must be empty
+    }
+
+    // Honeypot — bots fill this, humans don't see it
+    if (data.honeypot) {
+      setSubmitted(true)
+      return
     }
 
     startTransition(async () => {
@@ -42,14 +49,14 @@ export function ContactForm() {
         // Build WA message and open
         const pkg = PACKAGES.find(p => p.id === data.package)
         const waMessage = `Halo Bunda Vicca, saya ${data.name} ingin konsultasi wedding:%0A%0A` +
-          `📦 Paket: ${pkg?.name || data.package}%0A` +
-          `👥 Tamu: ${data.pax} orang%0A` +
-          `📅 Tanggal: ${data.date || 'belum fix'}%0A` +
-          `📍 Lokasi: ${data.location}%0A` +
-          `📞 HP: ${data.phone}%0A` +
-          (data.email ? `✉️ Email: ${data.email}%0A` : '') +
-          `%0ACatatan:%0A${data.message || '-'}%0A%0A` +
-          `Mohon info lebih lanjut. Terima kasih!`
+          `✦ Paket: ${pkg?.name || data.package}%0A` +
+          `✦ Tamu: ${data.pax} orang%0A` +
+          `✦ Tanggal: ${data.date || 'belum fix'}%0A` +
+          `✦ Lokasi: ${data.location}%0A` +
+          `✦ HP: ${data.phone}%0A` +
+          (data.email ? `✦ Email: ${data.email}%0A` : '') +
+          `%0A— Cerita kami —%0A${data.message || '—'}%0A%0A` +
+          `Mohon info lebih lanjut. Terima kasih 🙏`
 
         window.open(`https://wa.me/${BRAND.phone}?text=${waMessage}`, '_blank')
       } catch (err) {
@@ -60,36 +67,40 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="bg-sage-50 border border-sage-200 rounded-2xl p-8 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sage-300 mb-4">
-          <Check size={32} className="text-charcoal-700" strokeWidth={2.5} />
-        </div>
-        <h3 className="font-serif text-2xl text-charcoal-700 mb-2">
-          Terima kasih, Bunda Vicca akan segera menghubungi Anda.
-        </h3>
-        <p className="text-sm font-sans text-charcoal-600 mb-6">
-          Kami sudah membuka WhatsApp. Jika belum terbuka otomatis,
+      <div className="glass-card-featured p-10 lg:p-12 text-center relative overflow-hidden">
+        <div className="light-leak rounded-2xl" aria-hidden="true" />
+        <div className="relative z-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-champagne-400 mb-6">
+            <Heart size={28} className="text-midnight-500 fill-midnight-500" />
+          </div>
+          <h3 className="font-serif text-2xl lg:text-3xl text-ivory-100 mb-4">
+            Terima kasih.
+          </h3>
+          <p className="text-base font-sans text-ivory-300 mb-8 max-w-md mx-auto leading-relaxed">
+            Bunda Vicca akan menghubungi Anda dalam 2 jam. WhatsApp sudah terbuka otomatis untuk melanjutkan percakapan.
+          </p>
           <a
             href={`https://wa.me/${BRAND.phone}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sage-500 hover:text-sage-700 ml-1 underline"
+            className="btn-primary text-xs"
           >
-            klik di sini
-          </a>.
-        </p>
-        <button
-          onClick={() => setSubmitted(false)}
-          className="btn-secondary text-sm"
-        >
-          Kirim Inquiry Lain
-        </button>
+            <MessageCircle size={14} />
+            Buka WhatsApp
+          </a>
+          <button
+            onClick={() => setSubmitted(false)}
+            className="block mx-auto mt-5 text-xs font-sans text-ivory-400 hover:text-champagne-400 transition-colors duration-300 uppercase tracking-widest-2"
+          >
+            Kirim inquiry lain
+          </button>
+        </div>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-5">
         <div>
           <label htmlFor="name" className="form-label">
@@ -144,13 +155,13 @@ export function ContactForm() {
             className="form-input"
             defaultValue=""
           >
-            <option value="" disabled>Pilih paket</option>
+            <option value="" disabled className="bg-midnight-500">Pilih paket</option>
             {PACKAGES.map(pkg => (
-              <option key={pkg.id} value={pkg.id}>
+              <option key={pkg.id} value={pkg.id} className="bg-midnight-500">
                 {pkg.name} — {pkg.tagline} ({pkg.pax} pax)
               </option>
             ))}
-            <option value="custom">Custom / Belum tahu</option>
+            <option value="custom" className="bg-midnight-500">Custom / Belum tahu</option>
           </select>
         </div>
         <div>
@@ -193,33 +204,39 @@ export function ContactForm() {
             className="form-input"
             defaultValue=""
           >
-            <option value="" disabled>Pilih kota</option>
-            <option value="Jayapura">Jayapura</option>
-            <option value="Sorong">Sorong</option>
-            <option value="Timika">Timika</option>
-            <option value="Merauke">Merauke</option>
-            <option value="Manokwari">Manokwari</option>
-            <option value="Biak">Biak</option>
-            <option value="Lainnya">Lainnya</option>
+            <option value="" disabled className="bg-midnight-500">Pilih kota</option>
+            <option value="Jayapura" className="bg-midnight-500">Jayapura</option>
+            <option value="Sorong" className="bg-midnight-500">Sorong</option>
+            <option value="Timika" className="bg-midnight-500">Timika</option>
+            <option value="Merauke" className="bg-midnight-500">Merauke</option>
+            <option value="Manokwari" className="bg-midnight-500">Manokwari</option>
+            <option value="Biak" className="bg-midnight-500">Biak</option>
+            <option value="Lainnya" className="bg-midnight-500">Lainnya</option>
           </select>
         </div>
       </div>
 
       <div>
         <label htmlFor="message" className="form-label">
-          Ceritakan visi Anda
+          Ceritakan Visi Anda
         </label>
         <textarea
           id="message"
           name="message"
           rows={4}
-          placeholder="Tema, konsep, venue, cerita singkat tentang kalian berdua..."
+          placeholder="Tema, konsep, venue, atau cerita singkat tentang kalian berdua..."
           className="form-input resize-none"
         />
       </div>
 
+      {/* Honeypot — hidden from humans, bots fill this */}
+      <div className="absolute -left-[9999px] opacity-0 pointer-events-none" aria-hidden="true">
+        <label htmlFor="website">Website (leave empty)</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       {error && (
-        <div className="rounded-lg bg-rose-100 border border-rose-300 p-4 text-sm text-charcoal-600">
+        <div className="rounded-lg border border-blush-400/40 bg-blush-400/10 p-4 text-sm text-ivory-200">
           {error}
         </div>
       )}
@@ -231,22 +248,22 @@ export function ContactForm() {
       >
         {pending ? (
           <>
-            <Loader2 size={18} className="animate-spin" />
+            <Loader2 size={16} className="animate-spin" />
             Mengirim...
           </>
         ) : (
           <>
-            <Send size={18} />
+            <Send size={16} />
             Kirim & Buka WhatsApp
           </>
         )}
       </button>
 
-      <p className="text-xs font-sans text-charcoal-500 text-center">
-        <MessageCircle size={12} className="inline" />
-        <span className="ml-1">
-          Atau langsung chat di <a href={`https://wa.me/${BRAND.phone}`} target="_blank" rel="noopener noreferrer" className="text-sage-500 hover:text-sage-700 underline">{BRAND.phoneFormatted}</a> (Bunda Vicca)
-        </span>
+      <p className="text-xs font-sans text-ivory-400 text-center">
+        Atau langsung chat Bunda Vicca di
+        <a href={`https://wa.me/${BRAND.phone}`} target="_blank" rel="noopener noreferrer" className="ml-1 text-champagne-400 hover:text-champagne-300 transition-colors underline">
+          {BRAND.phoneFormatted}
+        </a>
       </p>
     </form>
   )
