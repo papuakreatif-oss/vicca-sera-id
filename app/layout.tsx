@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { viccaSeraJsonLdString } from '@/lib/jsonld'
 import './globals.css'
 
 // Cormorant Garamond — serif display, wedding elegant
@@ -88,37 +89,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-// JSON-LD structured data — LocalBusiness + WeddingVenue schema
-export const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': SITE_URL,
-  name: SITE_NAME,
-  description: SITE_DESC,
-  url: SITE_URL,
-  telephone: '+62-852-4466-1150',
-  priceRange: 'Rp 170.000.000 - Rp 340.000.000',
-  image: `${SITE_URL}/images/og-vicca-sera.jpg`,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Jayapura',
-    addressRegion: 'Papua',
-    addressCountry: 'ID',
-  },
-  areaServed: [
-    { '@type': 'City', name: 'Jayapura' },
-    { '@type': 'City', name: 'Sorong' },
-    { '@type': 'City', name: 'Timika' },
-    { '@type': 'City', name: 'Merauke' },
-    { '@type': 'City', name: 'Manokwari' },
-    { '@type': 'City', name: 'Biak' },
-  ],
-  sameAs: [
-    'https://www.instagram.com/viccasera_wo',
-    'https://www.tiktok.com/@viccasera_wo',
-    'https://www.facebook.com/viccaserawo',
-  ],
-}
+// JSON-LD structured data — see lib/jsonld.ts (imported as viccaSeraJsonLdString)
 
 export default function RootLayout({
   children,
@@ -130,7 +101,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-cream-100 text-charcoal-600 antialiased font-sans">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: viccaSeraJsonLdString }}
         />
         {children}
       </body>
