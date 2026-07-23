@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   Base — Editorial Wedding Elegance
+   ======================================== */
+@layer base {
+  :root {
+    --color-cream: 250 247 242;
+    --color-sage: 156 175 136;
+    --color-rose: 212 165 165;
+    --color-charcoal: 44 44 44;
+    --color-gold: 201 169 97;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    background-color: theme('colors.cream.100');
+    color: theme('colors.charcoal.600');
+  }
+
+  ::selection {
+    background-color: theme('colors.rose.300');
+    color: theme('colors.charcoal.700');
+  }
+
+  /* Editorial scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: theme('colors.cream.200');
+  }
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.sage.300');
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.sage.500');
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: theme('fontFamily.serif');
+    font-weight: 400;
+    color: theme('colors.charcoal.700');
+  }
+}
+
+/* ========================================
+   Components — Reusable
+   ======================================== */
+@layer components {
+  /* Editorial container */
+  .container-editorial {
+    @apply mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Eyebrow label — small uppercase tracking */
+  .eyebrow {
+    @apply text-eyebrow uppercase tracking-widest-2 font-sans font-medium text-sage-500;
+  }
+
+  /* Headline display */
+  .display-1 { @apply font-serif text-display-1 text-charcoal-700; }
+  .display-2 { @apply font-serif text-display-2 text-charcoal-700; }
+  .display-3 { @apply font-serif text-display-3 text-charcoal-700; }
+
+  /* Decorative rule */
+  .rule-ornament {
+    @apply relative inline-block;
+  }
+  .rule-ornament::before,
+  .rule-ornament::after {
+    content: '';
+    @apply absolute top-1/2 h-px w-12 bg-sage-300;
+  }
+  .rule-ornament::before { @apply -left-16; }
+  .rule-ornament::after { @apply -right-16; }
+
+  /* Primary CTA — Dusty Rose */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full
+           bg-rose-300 px-8 py-4 font-sans text-sm font-medium tracking-wide
+           text-charcoal-700 shadow-sm transition-all duration-300
+           hover:bg-rose-400 hover:shadow-lg hover:-translate-y-0.5
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-400
+           focus-visible:ring-offset-2 focus-visible:ring-offset-cream-100;
+  }
+
+  /* Secondary CTA — Outlined */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full
+           border border-charcoal-600 bg-transparent px-8 py-4
+           font-sans text-sm font-medium tracking-wide text-charcoal-600
+           transition-all duration-300 hover:bg-charcoal-600
+           hover:text-cream-100 focus:outline-none focus-visible:ring-2
+           focus-visible:ring-charcoal-600 focus-visible:ring-offset-2
+           focus-visible:ring-offset-cream-100;
+  }
+
+  /* Package card */
+  .package-card {
+    @apply relative flex flex-col rounded-2xl border border-cream-300
+           bg-cream-50 p-8 transition-all duration-500
+           hover:border-sage-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .package-card-featured {
+    @apply border-sage-300 shadow-xl -translate-y-2 bg-gradient-to-br
+           from-cream-50 to-sage-50;
+  }
+
+  /* Form input */
+  .form-input {
+    @apply w-full rounded-lg border border-cream-300 bg-cream-50
+           px-4 py-3 font-sans text-sm text-charcoal-600
+           placeholder:text-charcoal-400
+           focus:border-sage-300 focus:outline-none focus:ring-2
+           focus:ring-sage-200 transition-all;
+  }
+
+  .form-label {
+    @apply mb-2 block text-xs font-medium uppercase tracking-widest-2
+           text-charcoal-500 font-sans;
+  }
+}
+
+/* ========================================
+   Utilities — Custom
+   ======================================== */
+@layer utilities {
+  /* Cinematic parallax helper */
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  /* Text gradient */
+  .text-gradient-warm {
+    background: linear-gradient(135deg, theme('colors.sage.500') 0%, theme('colors.rose.400') 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Decorative ornament */
+  .ornament-divider {
+    @apply mx-auto my-12 flex items-center justify-center gap-4;
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    @apply h-px w-24 bg-sage-300;
+  }
+  .ornament-divider > * {
+    @apply font-serif italic text-sage-400 text-2xl;
+  }
+
+  /* Reveal animation on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Reduced motion respect */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
