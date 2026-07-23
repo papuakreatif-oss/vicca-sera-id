@@ -48,13 +48,12 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
-  // Experimental — improve performance
-  experimental: {
-    optimizeCss: true,
-  },
-
   // Compress on-the-fly
   compress: true,
+
+  // Production optimizations (stable in 14.2.x, no experimental flag needed)
+  productionBrowserSourceMaps: false,
+  generateBuildId: async () => `vicca-sera-${Date.now()}`,
 }
 
 export default nextConfig
