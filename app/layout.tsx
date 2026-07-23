@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     description: SITE_DESC,
     images: [
       {
-        url: '/images/og-vicca-sera.jpg',
+        url: '/images/og/og-vicca-sera.jpg',
         width: 1200,
         height: 630,
         alt: 'Vicca Sera Wedding Organizer — Papua',
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_NAME} — Elegansi Tanpa Batas`,
     description: SITE_DESC,
-    images: ['/images/og-vicca-sera.jpg'],
+    images: ['/images/og/og-vicca-sera.jpg'],
   },
   icons: {
     icon: [{ url: '/favicon.ico', sizes: 'any' }],

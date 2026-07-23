@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Camera, Heart, Sparkles } from 'lucide-react'
 
 const GALLERY_ITEMS = [
@@ -7,6 +8,7 @@ const GALLERY_ITEMS = [
     palette: 'champagne' as const,
     icon: Heart,
     aspect: 'aspect-[4/5]',
+    src: '/images/prewedding/0cf6a2909f039dda49791b84d213.jpg',
   },
   {
     title: 'Stella & Rendy',
@@ -14,6 +16,7 @@ const GALLERY_ITEMS = [
     palette: 'blush' as const,
     icon: Sparkles,
     aspect: 'aspect-[3/4]',
+    src: '/images/prewedding/eb558b51b2202604cec7cdbb78dc.jpg',
   },
   {
     title: 'Marsela & Doni',
@@ -21,6 +24,7 @@ const GALLERY_ITEMS = [
     palette: 'sage' as const,
     icon: Heart,
     aspect: 'aspect-[4/5]',
+    src: '/images/prewedding/a891d1cf199b9015b9e0096e986c.jpg',
   },
   {
     title: 'Yuni & Yosua',
@@ -28,6 +32,7 @@ const GALLERY_ITEMS = [
     palette: 'champagne' as const,
     icon: Heart,
     aspect: 'aspect-[3/4]',
+    src: '/images/prewedding/819cfcd01de6209c89d35652aa70.jpg',
   },
   {
     title: 'Gracia & Michael',
@@ -35,6 +40,7 @@ const GALLERY_ITEMS = [
     palette: 'blush' as const,
     icon: Heart,
     aspect: 'aspect-[4/5]',
+    src: '/images/prewedding/7fef1856cd0cf0618634739461e9.jpg',
   },
   {
     title: 'Anastasya & Bram',
@@ -42,6 +48,7 @@ const GALLERY_ITEMS = [
     palette: 'sage' as const,
     icon: Sparkles,
     aspect: 'aspect-[3/4]',
+    src: '/images/prewedding/602acfe695445a2594cc31e6c72b.jpg',
   },
 ]
 
@@ -61,16 +68,25 @@ export function Gallery() {
             key={index}
             className={`group relative overflow-hidden rounded-2xl ${item.aspect} cursor-pointer`}
           >
-            {/* Cinematic gradient placeholder */}
-            <div className={PALETTE_BG[item.palette] + ' absolute inset-0 transition-transform duration-700 group-hover:scale-110'} />
+            {/* Real wedding photo with next/image */}
+            <Image
+              src={item.src}
+              alt={`${item.title} — Vicca Sera Wedding di ${item.location}`}
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              quality={85}
+              loading={index < 2 ? 'eager' : 'lazy'}
+            />
+
+            {/* Cinematic gradient fallback (shows during load or if image fails) */}
+            <div
+              className={PALETTE_BG[item.palette] + ' absolute inset-0 -z-10 transition-transform duration-700'}
+              aria-hidden="true"
+            />
 
             {/* Vignette */}
             <div className="absolute inset-0 bg-gradient-to-t from-midnight-700/90 via-midnight-500/20 to-transparent" />
-
-            {/* Decorative ornament */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-30 group-hover:opacity-50 transition-opacity duration-500">
-              <Icon size={48} className="text-champagne-400" strokeWidth={1} />
-            </div>
 
             {/* Light leak overlay */}
             <div className="light-leak rounded-2xl" aria-hidden="true" />

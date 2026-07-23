@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Quote, Star } from 'lucide-react'
 
 const TESTIMONIALS = [
@@ -9,6 +10,7 @@ const TESTIMONIALS = [
     package: 'Paket Skyline',
     rating: 5,
     date: 'Maret 2026',
+    photo: '/images/prawedding/dc4709a9cb018bf1a1f2e5ceb393.jpg',
   },
   {
     quote:
@@ -18,6 +20,7 @@ const TESTIMONIALS = [
     package: 'Paket Cycloop',
     rating: 5,
     date: 'Januari 2026',
+    photo: '/images/prawedding/144daf17c43f2e107265a7a36489.jpg',
   },
   {
     quote:
@@ -27,6 +30,7 @@ const TESTIMONIALS = [
     package: 'Paket Youtefa',
     rating: 5,
     date: 'November 2025',
+    photo: '/images/prawedding/887d018e69e9c87b81deb6797af8.jpg',
   },
 ]
 
@@ -42,13 +46,26 @@ export function Testimonials() {
           <div className="light-leak rounded-2xl" aria-hidden="true" />
 
           <div className="relative z-10 flex flex-col h-full">
-            {/* Quote icon */}
-            <Quote
-              size={32}
-              className="text-champagne-400/40 mb-4"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
+            {/* Client photo — circular with gold ring */}
+            <div className="mb-5 flex items-center gap-4">
+              <div className="relative w-16 h-16 lg:w-20 lg:h-20 rounded-full overflow-hidden ring-2 ring-champagne-400/60 ring-offset-2 ring-offset-midnight-400 flex-shrink-0">
+                <Image
+                  src={item.photo}
+                  alt={`Foto ${item.names} — klien Vicca Sera Wedding di ${item.location}`}
+                  fill
+                  sizes="80px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  quality={85}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
+              <Quote
+                size={28}
+                className="text-champagne-400/30 ml-auto"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+            </div>
 
             {/* Rating */}
             <div className="flex items-center gap-0.5 mb-5">
